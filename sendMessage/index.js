@@ -23,9 +23,9 @@ module.exports = async function(context) {
         text: 'Hello world'
       }
     });
+    return `Hi ${context.bindings.name}!`;
   } catch (err) {
     context.log(err);
   }
 
-  return `Hello ${context.bindings.name}!`;
 };
