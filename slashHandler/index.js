@@ -28,13 +28,17 @@ module.exports = async function(context, req) {
   );
   context.log(`Started orchestration with ID = '${instanceId}'.`);
 
+  const timerStatus = client.createCheckStatusResponse(
+    context.bindingData.req,
+    instanceId
+  );
+
+  context.log(timerStatus);
+
   return {
     response_type: 'in_channel',
-    text: `*${request.body.text}* has been scheduled`,
-    orchestrationStatus: client.createCheckStatusResponse(
-      context.bindingData.req,
-      instanceId
-    )
+    text: `*${req.body.text}* has been scheduled`,
+    timerStatus
   };
 };
 
