@@ -12,6 +12,7 @@
 const axios = require('axios');
 module.exports = async function(context) {
   try {
+    context.log('Starting request');
     await axios({
       method: 'post',
       url:
@@ -19,13 +20,12 @@ module.exports = async function(context) {
       headers: {
         'Content-type': 'application/json'
       },
-      body: {
-        text: 'Hello world'
+      data: {
+        text: context.bindings.name.text
       }
     });
-    return `Hi ${context.bindings.name}!`;
+    return `Hello ${context.bindings.name.text}!`;
   } catch (err) {
     context.log(err);
   }
-
 };
