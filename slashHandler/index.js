@@ -35,11 +35,17 @@ module.exports = async function(context, req) {
 
   context.log(timerStatus);
 
-  return {
-    response_type: 'in_channel',
-    text: `*${req.body.text}* has been scheduled`,
-    timerStatus
-  };
+  return (context.res = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    status: 200,
+    body: {
+      response_type: 'in_channel',
+      text: `*${req.body.text}* has been scheduled`,
+      timerStatus
+    }
+  });
 };
 
 function handleUnVerifiedRequest(context) {
