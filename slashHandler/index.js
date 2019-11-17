@@ -35,7 +35,7 @@ module.exports = async function(context, req) {
 
   context.log(timerStatus);
 
-  return (context.res = {
+  return {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -45,7 +45,7 @@ module.exports = async function(context, req) {
       text: `*${req.body.text}* has been scheduled`,
       timerStatus
     }
-  });
+  };
 };
 
 function handleUnVerifiedRequest(context) {
