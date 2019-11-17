@@ -26,7 +26,7 @@ module.exports = df.orchestrator(function*(context) {
     .tz(timeZone)
     .format();
 
-  yield context.df.createTimer(new Date(remindAt));
+//   yield context.df.createTimer(new Date(remindAt));
 
   const message = {
     text: `You scheduled ${naturalLanguage} to happen now`
