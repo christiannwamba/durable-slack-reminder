@@ -28,7 +28,14 @@ module.exports = async function(context, req) {
   );
   context.log(`Started orchestration with ID = '${instanceId}'.`);
 
-  return client.createCheckStatusResponse(context.bindingData.req, instanceId);
+  return {
+    response_type: 'in_channel',
+    text: `*${request.body.text}* has been scheduled`,
+    orchestrationStatus: client.createCheckStatusResponse(
+      context.bindingData.req,
+      instanceId
+    )
+  };
 };
 
 function handleUnVerifiedRequest(context) {

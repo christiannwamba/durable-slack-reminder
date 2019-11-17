@@ -16,20 +16,18 @@ const chrono = require('chrono-node');
 module.exports = df.orchestrator(function*(context) {
   const input = context.df.getInput();
 
-  const naturalLanguage = input.text
-    ? input.text
-    : 'I have an appointment in 20 seconds';
-  const timeZone = input.timeZone ? input.timeZone : 'Asia/Muscat';
+  const naturalLanguage = input.text;
+  const timeZone = input.timeZone;
   const parsedDate = chrono.parseDate(naturalLanguage);
 
   const remindAt = moment(parsedDate)
     .tz(timeZone)
     .format();
 
-//   yield context.df.createTimer(new Date(remindAt));
+  yield context.df.createTimer(new Date(remindAt));
 
   const message = {
-    text: `You scheduled ${naturalLanguage} to happen now`
+    text: `You scheduled *${naturalLanguage}* to happen now`
   };
   return yield context.df.callActivity('sendMessage', message);
 });
