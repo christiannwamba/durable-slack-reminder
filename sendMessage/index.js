@@ -1,7 +1,7 @@
 ﻿/*
  * This function is not intended to be invoked directly. Instead it will be
  * triggered by an orchestrator function.
- * 
+ *
  * Before running this sample, please:
  * - create a Durable orchestration function
  * - create a Durable HTTP starter function
@@ -9,6 +9,23 @@
  *   function app in Kudu
  */
 
-module.exports = async function (context) {
-    return `Hello ${context.bindings.name}!`;
+const axios = require('axios');
+module.exports = async function(context) {
+  try {
+    await axios({
+      method: 'post',
+      url:
+        'https://hooks.slack.com/services/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',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: {
+        text: 'Hello world'
+      }
+    });
+  } catch (err) {
+    context.log(err);
+  }
+
+  return `Hello ${context.bindings.name}!`;
 };
