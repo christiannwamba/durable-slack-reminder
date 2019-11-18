@@ -18,7 +18,7 @@ module.exports = df.orchestrator(function*(context) {
 
   const naturalLanguage = input.text;
   const timeZone = input.timeZone;
-  const parsedDate = chrono.parseDate(naturalLanguage);
+  const parsedDate = chrono.parseDate(naturalLanguage, context.df.currentUtcDateTime);
 
   const remindAt = moment(parsedDate)
     .tz(timeZone)
