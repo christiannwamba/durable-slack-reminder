@@ -9,6 +9,9 @@
     "slackToken": {
       "type": "string"
     },
+    "slackWebhookUrl": {
+      "type": "string"
+    },
     "repoUrl": {
       "type": "string",
       "defaultValue": "https://github.com/christiannwamba/durable-slack-reminder"
@@ -157,6 +160,10 @@
             {
               "name": "SLACK_ACCESS_TOKEN",
               "value": "[parameters('slackToken')]"
+            },
+            {
+              "name": "SLACK_WEBHOOK_URL",
+              "value": "[parameters('slackWebhookUrl')]"
             }
             
           ]

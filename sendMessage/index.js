@@ -15,8 +15,7 @@ module.exports = async function(context) {
     context.log('Starting request');
     await axios({
       method: 'post',
-      url:
-        'https://hooks.slack.com/services/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',
+      url: process.env['SLACK_WEBHOOK_URL'],
       headers: {
         'Content-type': 'application/json'
       },

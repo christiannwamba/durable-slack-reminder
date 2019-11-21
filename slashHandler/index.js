@@ -17,6 +17,7 @@ module.exports = async function(context, req) {
   const userResponse = await axios.get(
     `https://slack.com/api/users.info?token=${accessToken}&user=${req.body.user_id}`
   );
+  
   const userTimeZone = userResponse.data.user.tz;
 
   context.log('timezone>>>>>>>', userTimeZone);
