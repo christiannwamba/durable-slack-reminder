@@ -6,6 +6,9 @@
     "siteLocation": {
       "type": "string"
     },
+    "slackToken": {
+      "type": "string"
+    },
     "repoUrl": {
       "type": "string",
       "defaultValue": "https://github.com/christiannwamba/durable-slack-reminder"
@@ -81,37 +84,13 @@
         "Request_Source": "IbizaWebAppExtensionCreate"
       }
     },
-    {
-      "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2018-02-01",
-      "name": "[parameters('siteName')]",
-      "location": "[parameters('siteLocation')]",
-      "sku": {
-        "name": "Y1",
-        "tier": "Dynamic",
-        "size": "Y1",
-        "family": "Y",
-        "capacity": 0
-      },
-      "kind": "functionapp",
-      "properties": {
-        "perSiteScaling": false,
-        "maximumElasticWorkerCount": 1,
-        "isSpot": false,
-        "reserved": false,
-        "isXenon": false,
-        "hyperV": false,
-        "targetWorkerCount": 0,
-        "targetWorkerSizeId": 0
-      }
-    },
+    
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2018-11-01",
       "name": "[parameters('siteName')]",
       "location": "[parameters('siteLocation')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('siteName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
         "[resourceId('microsoft.insights/components', parameters('siteName'))]"
       ],
@@ -174,13 +153,17 @@
             {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
               "value": "[reference(concat('microsoft.insights/components/', parameters('siteName')), '2015-05-01').InstrumentationKey]"
+            },
+            {
+              "name": "SLACK_ACCESS_TOKEN",
+              "value": "[parameters('slackToken')]"
             }
+            
           ]
         },
         "name": "[parameters('siteName')]",
         "clientAffinityEnabled": false,
         "reserved": false,
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('siteName'))]",
         "isXenon": false,
         "hyperV": false,
         "scmSiteAlsoStopped": false,
